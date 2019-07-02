@@ -1,8 +1,8 @@
 $(document).ready(function () {
     var tableData = [
-        { id: 1, title: 'John', action: 'delete' },
-        { id: '5', title: 'Mary', action: 'delete' },
-        { id: '02', title: 'July', action: 'delete' }
+        { id: 1, title: 'John', action: 'delete', actionTwo: 'edit' },
+        { id: '5', title: 'Mary', action: 'delete', actionTwo: 'edit'  },
+        { id: '02', title: 'July', action: 'delete', actionTwo: 'edit'  }
     ];
 
     var gWay = 'asc';
@@ -14,7 +14,6 @@ $(document).ready(function () {
         var max = 0;
 
         for (var i = 0; i < tableData.length; i++) {
-            //   var number = Math.max(tableData.id);
             if (tableData[i]["id"] > max) { max = tableData[i]["id"]; }
         }
         debugger;
@@ -38,10 +37,10 @@ $(document).ready(function () {
         for (var i = 0; i < tableData.length; i++) {
             var idField = "<td>" + tableData[i]["id"] + "</td>";
             var titleField = "<td>" + tableData[i]["title"] + "</td>";
-            var actionField = "<td>" + "<button type='button' class='btn btn-danger delete-cls' id='" + tableData[i]["id"] + "'>" + tableData[i]["action"] + "</button>" + "</td>";
-            allFields = allFields + "<tr>" + idField + titleField + actionField + "</tr>";
-
-            // $('#data_table').append("<tr>" + idField + nameField + lastNameField + emailField + ageField + "</tr>");
+            var actionField = "<td>" 
+            + "<button type='button' class='btn btn-danger delete-cls' id='" + tableData[i]["id"] + "'>" + tableData[i]["action"] + "</button>" 
+            + "<button type='button' class='btn btn-primary edit-cls' id='" + tableData[i]["id"] + "'>" + tableData[i]["actionTwo"] + "</button>" + "</td>";
+            allFields = allFields + "<tr>" + idField + titleField + actionField + "</tr>";            
         };
         debugger;
         $('#data_table tbody').html(allFields);
@@ -60,12 +59,12 @@ $(document).ready(function () {
             debugger;
             if (fieldID == 'id') {
                 if (gWay == 'desc') {
-                    tableData.unshift({ id: maxID() + 1, title: newTitle, action: 'delete' });
+                    tableData.unshift({ id: maxID() + 1, title: newTitle, action: 'delete', actionTwo: 'edit' });
                 } else if (gWay == 'asc') {
-                    tableData.push({ id: maxID() + 1, title: newTitle, action: 'delete' });
+                    tableData.push({ id: maxID() + 1, title: newTitle, action: 'delete', actionTwo: 'edit' });
                 }
             } else if (fieldID == 'title') {
-                tableData.push({ id: maxID() + 1, title: newTitle, action: 'delete' });
+                tableData.push({ id: maxID() + 1, title: newTitle, action: 'delete', actionTwo: 'edit'  });
                 sortTableData(tableData, fieldID, gWay);
             }
 
@@ -114,6 +113,11 @@ $(document).ready(function () {
         debugger;
         var clickID = $(this).attr('id');
         deleteItem(clickID);
+    });
+
+    $(document).on('click', '.edit-cls', function () {
+        debugger;
+        $(this).toggleClass("btn-primary btn-success");
     });
 
 
