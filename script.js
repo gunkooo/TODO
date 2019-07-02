@@ -60,12 +60,12 @@ $(document).ready(function () {
             debugger;
             if (fieldID == 'id') {
                 if (gWay == 'desc') {
-                    tableData.unshift({ id: maxID() + 1, title: newTitle, action: 'del' });
+                    tableData.unshift({ id: maxID() + 1, title: newTitle, action: 'delete' });
                 } else if (gWay == 'asc') {
-                    tableData.push({ id: maxID() + 1, title: newTitle, action: 'del' });
+                    tableData.push({ id: maxID() + 1, title: newTitle, action: 'delete' });
                 }
             } else if (fieldID == 'title') {
-                tableData.push({ id: maxID() + 1, title: newTitle, action: 'del' });
+                tableData.push({ id: maxID() + 1, title: newTitle, action: 'delete' });
                 sortTableData(tableData, fieldID, gWay);
             }
 
