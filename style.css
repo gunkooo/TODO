@@ -1,3 +1,11 @@
 .edit-cls {
     margin-left: 5px;
 }
+
+.hideEdit {
+    display: none;
+}
+
+.showEdit {
+    display: inline-block;
+}

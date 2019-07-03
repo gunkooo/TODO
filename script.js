@@ -36,11 +36,14 @@ $(document).ready(function () {
 
         for (var i = 0; i < tableData.length; i++) {
             var idField = "<td>" + tableData[i]["id"] + "</td>";
-            var titleField = "<td>" + tableData[i]["title"] + "</td>";
+            var titleField = "<td>" + "<span>" + tableData[i]["title"] + "</span>" 
+            + "<input class='hidden' type='text' name='editTitle' id='editTitle' value='" + tableData[i]["title"] + "'>" +
+            "</td>";
+
             var actionField = "<td>" 
-            + "<button type='button' class='btn btn-danger delete-cls' id='" + tableData[i]["id"] + "'>" + tableData[i]["action"] + "</button>" 
-            + "<button type='button' class='btn btn-primary edit-cls' id='" + tableData[i]["id"] + "'>" + tableData[i]["actionTwo"] + "</button>" + "</td>";
-            allFields = allFields + "<tr>" + idField + titleField + actionField + "</tr>";            
+            + "<button type='button' class='btn btn-danger delete-cls'>" + tableData[i]["action"] + "</button>" 
+            + "<button type='button' class='btn btn-primary edit-cls'>" + tableData[i]["actionTwo"] + "</button>" + "</td>";
+            allFields = allFields + "<tr id='" + tableData[i]["id"] + "'>" + idField + titleField + actionField + "</tr>";            
         };
         debugger;
         $('#data_table tbody').html(allFields);
@@ -111,14 +114,38 @@ $(document).ready(function () {
 
     $(document).on('click', '.delete-cls', function () {
         debugger;
-        var clickID = $(this).attr('id');
+        var clickID = $(this).closest('tr').attr('id');
         deleteItem(clickID);
     });
 
     $(document).on('click', '.edit-cls', function () {
         debugger;
+        var clickID = $(this).closest('tr').attr('id');
         $(this).toggleClass("btn-primary btn-success");
+        
+        var $span = $(this).closest('tr').find('span');
+        var $input = $(this).closest('tr').find('input');
+        $span.toggleClass("hidden");
+        $input.toggleClass("hidden");
+
+        if ($input.hasClass("hidden")) {
+            editItem(clickID,$input.val());
+        }
+
     });
+    
+    function testSave(id,value) {
+        console.log(id,value);
+    }
+
+    function editItem(id,newValTitle) {
+        for (var i = 0; i < tableData.length; i++) {
+            if (tableData[i]["id"] == id) {
+                tableData[i]["title"] = newValTitle;
+            }
+        }
+        renderTable();
+    }
 
 
     function deleteItem(id) {
