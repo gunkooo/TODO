@@ -9,3 +9,7 @@
 .showEdit {
     display: inline-block;
 }
+
+.del-checkbox {
+    margin-right: 5px !important;
+}
